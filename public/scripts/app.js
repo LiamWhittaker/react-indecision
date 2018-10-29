@@ -9,7 +9,6 @@ var app = {
 };
 
 var appRoot = document.getElementById('app');
-
 // ======== Functions ===========
 var onFormSubmit = function onFormSubmit(e) {
   e.preventDefault();
@@ -60,16 +59,13 @@ var renderApp = function renderApp() {
     React.createElement(
       'ol',
       null,
-      React.createElement(
-        'li',
-        null,
-        'One'
-      ),
-      React.createElement(
-        'li',
-        null,
-        'Two'
-      )
+      app.options.map(function (option) {
+        return React.createElement(
+          'li',
+          { key: option },
+          option
+        );
+      })
     ),
     React.createElement(
       'form',

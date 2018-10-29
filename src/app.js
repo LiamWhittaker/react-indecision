@@ -7,7 +7,6 @@ const app = {
 }
 
 const appRoot = document.getElementById('app');
-
 // ======== Functions ===========
 const onFormSubmit = (e) => {
   e.preventDefault();
@@ -35,8 +34,9 @@ const renderApp = () => {
       <p>{app.options.length}</p>
       <button onClick={removeAll}>Remove All</button>
       <ol>
-        <li>One</li>
-        <li>Two</li>
+        { 
+          app.options.map((option) => <li key={option}>{option}</li>)
+        }
       </ol>
   
       <form onSubmit={onFormSubmit}>
