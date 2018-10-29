@@ -17,31 +17,41 @@ const template = (
     </ol>
   </div>
 );
-const userName = 'Liam';
-const userAge = 29;
-const userLocation = 'The Moon';
 
-const user = {
-  name: 'Liam',
-  age: 18,
-  location: 'Valhalla'
-}
+// =============
+let count = 0;
+const addOne = () => {
+  count++;
+  renderCounter();
+  console.log('inc');
+};
+const minusOne = () => {
+  count--;
+  renderCounter();
+  console.log('minus 1');
+};
+const reset = () => {
+  count = 0;
+  renderCounter();
+  console.log('reset');
+};
 
-function getLocation(location) {
-  if(location) {
-    return <p>Location: {location}</p>;
-  } 
-}
 
-const templateTwo = (
-  <div>
-    <h1>{ (user.name) ? user.name : 'Anon' }</h1>
-    { (user.age && user.age >= 18) && <p>Age: { user.age }</p> }
-    { getLocation(user.location) }
-  </div>
-);
-
+// ===============
 const appRoot = document.getElementById('app');
 
-// Takes 2 args: JSX and where to render it
-ReactDOM.render(template, appRoot);
+const renderCounter = () => {
+  const templateTwo = (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={addOne}>++</button>
+      <button onClick={minusOne}>--</button>
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
+  
+  // Takes 2 args: JSX and where to render it
+  ReactDOM.render(templateTwo, appRoot);
+}
+
+renderCounter();

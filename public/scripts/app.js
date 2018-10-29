@@ -1,38 +1,97 @@
 'use strict';
 
-// arguments object no longer bound in arrow funcs
+console.log('app.js is running');
 
-var add = function add(a, b) {
-  // console.log(arguments);   <-----
-  return a + b;
+var app = {
+  title: 'Indecision App',
+  subtitle: 'A React app to help you decide stuff',
+  options: ['One', 'Two']
 };
-console.log(add(55, 1));
 
-// 'this' no longer bound either
-var user = {
-  name: 'Liam',
-  cities: ['Knutsford', 'Manchester', 'Sevilla'],
-  printPlacesLived: function printPlacesLived() {
-    var _this = this;
+var template = React.createElement(
+  'div',
+  null,
+  React.createElement(
+    'h1',
+    null,
+    app.title
+  ),
+  app.subtitle && React.createElement(
+    'p',
+    null,
+    app.subtitle
+  ),
+  React.createElement(
+    'p',
+    null,
+    app.options.length > 0 ? 'Here are your options' : 'No options'
+  ),
+  React.createElement(
+    'ol',
+    null,
+    React.createElement(
+      'li',
+      null,
+      'One'
+    ),
+    React.createElement(
+      'li',
+      null,
+      'Two'
+    )
+  )
+);
 
-    return this.cities.map(function (city) {
-      return _this.name + ' has lived in ' + city;
-    });
-  }
+// =============
+var count = 0;
+var addOne = function addOne() {
+  count++;
+  renderCounter();
+  console.log('inc');
 };
-console.log(user.printPlacesLived());
-
-// Challenge
-
-var multiplier = {
-  numbers: [2, 3, 4],
-  multiplyBy: 3,
-  multiply: function multiply() {
-    var _this2 = this;
-
-    return this.numbers.map(function (x) {
-      return x * _this2.multiplyBy;
-    });
-  }
+var minusOne = function minusOne() {
+  count--;
+  renderCounter();
+  console.log('minus 1');
 };
-console.log(multiplier.multiply());
+var reset = function reset() {
+  count = 0;
+  renderCounter();
+  console.log('reset');
+};
+
+// ===============
+var appRoot = document.getElementById('app');
+
+var renderCounter = function renderCounter() {
+  var templateTwo = React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      'Count: ',
+      count
+    ),
+    React.createElement(
+      'button',
+      { onClick: addOne },
+      '++'
+    ),
+    React.createElement(
+      'button',
+      { onClick: minusOne },
+      '--'
+    ),
+    React.createElement(
+      'button',
+      { onClick: reset },
+      'Reset'
+    )
+  );
+
+  // Takes 2 args: JSX and where to render it
+  ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounter();
